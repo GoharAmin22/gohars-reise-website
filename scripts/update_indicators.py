@@ -18,7 +18,7 @@ def fetch(spec):
     if set(ids)-set(selected)-{"time"}:raise ValueError("Unfiltered dimensions "+str(set(ids)-set(selected)-{"time"}))
     points=[]
     for period,pos in dims["time"]["category"]["index"].items():
-        if not re.fullmatch(r"20\\d{2}-\\d{2}",period):continue
+        if not re.fullmatch(r"20\d{2}-\d{2}",period):continue
         ix=0
         for dim,size in zip(ids,sizes):ix=ix*size+(pos if dim=="time" else selected[dim])
         val=d["value"].get(str(ix))
