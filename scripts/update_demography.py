@@ -11,8 +11,8 @@ def main():
     if not indicator_key:raise ValueError("Indicator dimension missing")
     labels=dims[indicator_key]["category"]["label"]
     patterns={
-      "births":[r"^live births",r"^births - total"],
-      "deaths":[r"^deaths - total",r"^deaths$"],
+      "births":[r"^live births(?: - total)?$",r"^live births - total"],
+      "deaths":[r"^deaths(?: - total)?$",r"^deaths - total"],
       "immigration":[r"^immigration$",r"^immigrants$"],
       "emigration":[r"^emigration$",r"^emigrants$"]
     }
