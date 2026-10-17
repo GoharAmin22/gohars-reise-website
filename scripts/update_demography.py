@@ -15,6 +15,8 @@ def main():
     for code in codes.values():
         if code not in dims[indicator_key]["category"]["index"]:
             raise ValueError("Missing indicator "+code)
+    # Migration is a separate Eurostat annual dataset (migr_imm8 / migr_emi2).
+    # Do not infer migration from demo_gind, where these indicators are absent.
     def get(code,year):
         coords=[]
         for dim in ids:
