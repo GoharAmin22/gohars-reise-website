@@ -32,7 +32,7 @@ def main():
         for i,size in zip(coords,sizes):offset=offset*size+i
         val=data["value"].get(str(offset))
         return round(val) if isinstance(val,(int,float)) and val>=0 else None
-    years=sorted((y for y in dims["time"]["category"]["index"] if re.fullmatch(r"20\\d{2}",y)),reverse=True)
+    years=sorted((y for y in dims["time"]["category"]["index"] if re.fullmatch(r"20\d{2}",y)),reverse=True)
     metrics={}
     for key,code in codes.items():
         valid=[(year,get(code,year)) for year in years]
