@@ -10,18 +10,11 @@ def main():
     indicator_key=next((x for x in ids if x.lower() in ("indic_de","indic")),None)
     if not indicator_key:raise ValueError("Indicator dimension missing")
     labels=dims[indicator_key]["category"]["label"]
-    patterns={
-      "births":[r"^live births(?: - total)?$",r"^live births - total"],
-      "deaths":[r"^deaths(?: - total)?$",r"^deaths - total"],
-      "immigration":[r"^immigration$",r"^immigrants$"],
-      "emigration":[r"^emigration$",r"^emigrants$"]
-    }
-    codes={}
-    for key, pats in patterns.items():
-        matches=[code for code,label in labels.items() if any(re.search(p,label,re.I) for p in pats)]
-        if len(matches)==1:codes[key]=matches[0]
-    if "births" not in codes or "deaths" not in codes:
-        raise ValueError("Birth/death indicators not identified unambiguously: "+str(labels))
+    # Stable official Eurostat indicator codes (do not match translated labels).
+    codes={"births":"LBIRTH","deaths":"DEATH"}
+    for code in codes.values():
+        if code not in dims[indicator_key]["category"]["index"]:
+            raise ValueError("Missing indicator "+code)
     def get(code,year):
         coords=[]
         for dim in ids:
